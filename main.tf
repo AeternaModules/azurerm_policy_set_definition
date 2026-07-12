@@ -9,16 +9,19 @@ resource "azurerm_policy_set_definition" "policy_set_definitions" {
   metadata            = each.value.metadata
   parameters          = each.value.parameters
 
-  policy_definition_reference {
-    parameter_values     = each.value.policy_definition_reference.parameter_values
-    policy_definition_id = each.value.policy_definition_reference.policy_definition_id
-    policy_group_names   = each.value.policy_definition_reference.policy_group_names
-    reference_id         = each.value.policy_definition_reference.reference_id
-    version              = each.value.policy_definition_reference.version
+  dynamic "policy_definition_reference" {
+    for_each = each.value.policy_definition_reference
+    content {
+      parameter_values     = policy_definition_reference.value.parameter_values
+      policy_definition_id = policy_definition_reference.value.policy_definition_id
+      policy_group_names   = policy_definition_reference.value.policy_group_names
+      reference_id         = policy_definition_reference.value.reference_id
+      version              = policy_definition_reference.value.version
+    }
   }
 
   dynamic "policy_definition_group" {
-    for_each = each.value.policy_definition_group != null ? [each.value.policy_definition_group] : []
+    for_each = each.value.policy_definition_group != null ? each.value.policy_definition_group : []
     content {
       additional_metadata_resource_id = policy_definition_group.value.additional_metadata_resource_id
       category                        = policy_definition_group.value.category

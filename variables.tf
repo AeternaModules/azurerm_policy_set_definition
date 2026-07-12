@@ -32,20 +32,20 @@ EOT
     management_group_id = optional(string)
     metadata            = optional(string)
     parameters          = optional(string)
-    policy_definition_reference = object({
+    policy_definition_reference = list(object({
       parameter_values     = optional(string)
       policy_definition_id = string
       policy_group_names   = optional(set(string))
       reference_id         = optional(string)
       version              = optional(string)
-    })
-    policy_definition_group = optional(object({
+    }))
+    policy_definition_group = optional(list(object({
       additional_metadata_resource_id = optional(string)
       category                        = optional(string)
       description                     = optional(string)
       display_name                    = optional(string)
       name                            = string
-    }))
+    })))
   }))
 }
 

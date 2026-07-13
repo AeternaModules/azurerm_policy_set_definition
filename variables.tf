@@ -47,5 +47,13 @@ EOT
       name                            = string
     })))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.policy_set_definitions : (
+        length(v.policy_definition_reference) >= 1
+      )
+    ])
+    error_message = "Each policy_definition_reference list must contain at least 1 items"
+  }
 }
 

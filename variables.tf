@@ -13,7 +13,6 @@ Required:
         - version (optional)
 Optional:
     - description
-    - management_group_id
     - metadata
     - parameters
     - policy_definition_group (block):
@@ -25,13 +24,12 @@ Optional:
 EOT
 
   type = map(object({
-    display_name        = string
-    name                = string
-    policy_type         = string
-    description         = optional(string)
-    management_group_id = optional(string)
-    metadata            = optional(string)
-    parameters          = optional(string)
+    display_name = string
+    name         = string
+    policy_type  = string
+    description  = optional(string)
+    metadata     = optional(string)
+    parameters   = optional(string)
     policy_definition_reference = list(object({
       parameter_values     = optional(string)
       policy_definition_id = string

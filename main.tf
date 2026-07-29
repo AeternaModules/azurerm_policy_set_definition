@@ -1,13 +1,12 @@
 resource "azurerm_policy_set_definition" "policy_set_definitions" {
   for_each = var.policy_set_definitions
 
-  display_name        = each.value.display_name
-  name                = each.value.name
-  policy_type         = each.value.policy_type
-  description         = each.value.description
-  management_group_id = each.value.management_group_id
-  metadata            = each.value.metadata
-  parameters          = each.value.parameters
+  display_name = each.value.display_name
+  name         = each.value.name
+  policy_type  = each.value.policy_type
+  description  = each.value.description
+  metadata     = each.value.metadata
+  parameters   = each.value.parameters
 
   dynamic "policy_definition_reference" {
     for_each = each.value.policy_definition_reference
